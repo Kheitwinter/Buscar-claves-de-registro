@@ -292,51 +292,56 @@ def count_registry_keys(hive, path=""):
 
     return count
 
-# Crear la ventana principal
-root = tk.Tk()
-root.title("Buscador en el Registro")
-root.geometry("660x524")  # Ajuste la altura y ancho de la ventana principal
+# Punto de entrada principal
+if __name__ == "__main__":
+    # Crear la ventana principal
+    root = tk.Tk()
+    root.title("Buscador en el Registro")
+    root.geometry("660x524")  # Ajuste la altura y ancho de la ventana principal
 
-tk.Label(root, text="Palabra a buscar:").pack(pady=10)
-entry_search = tk.Entry(root, width=50)
-entry_search.pack(pady=10)
-entry_search.bind("<Return>", start_search)  # Iniciar búsqueda al presionar Enter
+    tk.Label(root, text="Palabra a buscar:").pack(pady=10)
+    entry_search = tk.Entry(root, width=50)
+    entry_search.pack(pady=10)
+    entry_search.bind("<Return>", start_search)  # Iniciar búsqueda al presionar Enter
 
-var_hklm, var_hkcu, var_hkcr, var_hku, var_hkcc = tk.BooleanVar(), tk.BooleanVar(), tk.BooleanVar(), tk.BooleanVar(), tk.BooleanVar()
-tk.Checkbutton(root, text="HKEY_LOCAL_MACHINE", variable=var_hklm).pack(anchor="w", padx=80, pady=10)  # Ajusta el padding aquí para mover los elementos a la derecha
-tk.Checkbutton(root, text="HKEY_CURRENT_USER", variable=var_hkcu).pack(anchor="w", padx=80, pady=10)  # Ajusta el padding aquí para mover los elementos a la derecha
-tk.Checkbutton(root, text="HKEY_CLASSES_ROOT", variable=var_hkcr).pack(anchor="w", padx=80, pady=10)  # Ajusta el padding aquí para mover los elementos a la derecha
-tk.Checkbutton(root, text="HKEY_USERS", variable=var_hku).pack(anchor="w", padx=80, pady=10)  # Ajusta el padding aquí para mover los elementos a la derecha
-tk.Checkbutton(root, text="HKEY_CURRENT_CONFIG", variable=var_hkcc).pack(anchor="w", padx=80, pady=10)  # Ajusta el padding aquí para mover los elementos a la derecha
+    var_hklm, var_hkcu, var_hkcr, var_hku, var_hkcc = tk.BooleanVar(), tk.BooleanVar(), tk.BooleanVar(), tk.BooleanVar(), tk.BooleanVar()
+    tk.Checkbutton(root, text="HKEY_LOCAL_MACHINE", variable=var_hklm).pack(anchor="w", padx=80, pady=10)  # Ajusta el padding aquí para mover los elementos a la derecha
+    tk.Checkbutton(root, text="HKEY_CURRENT_USER", variable=var_hkcu).pack(anchor="w", padx=80, pady=10)  # Ajusta el padding aquí para mover los elementos a la derecha
+    tk.Checkbutton(root, text="HKEY_CLASSES_ROOT", variable=var_hkcr).pack(anchor="w", padx=80, pady=10)  # Ajusta el padding aquí para mover los elementos a la derecha
+    tk.Checkbutton(root, text="HKEY_USERS", variable=var_hku).pack(anchor="w", padx=80, pady=10)  # Ajusta el padding aquí para mover los elementos a la derecha
+    tk.Checkbutton(root, text="HKEY_CURRENT_CONFIG", variable=var_hkcc).pack(anchor="w", padx=80, pady=10)  # Ajusta el padding aquí para mover los elementos a la derecha
 
-button_frame = tk.Frame(root)
-button_frame.pack(pady=10)
+    button_frame = tk.Frame(root)
+    button_frame.pack(pady=10)
 
-def select_all_checkboxes():
-    var_hklm.set(True)
-    var_hkcu.set(True)
-    var_hkcr.set(True)
-    var_hku.set(True)
-    var_hkcc.set(True)
+    def select_all_checkboxes():
+        var_hklm.set(True)
+        var_hkcu.set(True)
+        var_hkcr.set(True)
+        var_hku.set(True)
+        var_hkcc.set(True)
 
-def deselect_all_checkboxes():
-    var_hklm.set(False)
-    var_hkcu.set(False)
-    var_hkcr.set(False)
-    var_hku.set(False)
-    var_hkcc.set(False)
+    def deselect_all_checkboxes():
+        var_hklm.set(False)
+        var_hkcu.set(False)
+        var_hkcr.set(False)
+        var_hku.set(False)
+        var_hkcc.set(False)
 
-btn_select_all = tk.Button(button_frame, text="Seleccionar Todo", command=select_all_checkboxes)
-btn_select_all.pack(side="left", padx=5)
+    btn_select_all = tk.Button(button_frame, text="Seleccionar Todo", command=select_all_checkboxes)
+    btn_select_all.pack(side="left", padx=5)
 
-btn_deselect_all = tk.Button(button_frame, text="Quitar selección", command=deselect_all_checkboxes)
-btn_deselect_all.pack(side="left", padx=5)
+    btn_deselect_all = tk.Button(button_frame, text="Quitar selección", command=deselect_all_checkboxes)
+    btn_deselect_all.pack(side="left", padx=5)
 
-tk.Button(button_frame, text="Buscar", command=start_search).pack(side="left", padx=5)
+    tk.Button(button_frame, text="Buscar", command=start_search).pack(side="left", padx=5)
 
-# Barra de progreso
-progress_var = tk.DoubleVar()
-progress_bar = ttk.Progressbar(root, variable=progress_var, maximum=100, length=400)
-progress_bar.pack(pady=20)  # Mueva esta línea para asegurar que la barra de progreso se desplace hacia abajo
+    # Barra de progreso
+    progress_var = tk.DoubleVar()
+    progress_bar = ttk.Progressbar(root, variable=progress_var, maximum=100, length=400)
+    progress_bar.pack(pady=20)  # Mueva esta línea para asegurar que la barra de progreso se desplace hacia abajo
 
-root.mainloop()
+    # Botón para cerrar la ventana principal
+    tk.Button(root, text="Cerrar", command=root.destroy).pack(pady=10)
+
+    root.mainloop()
